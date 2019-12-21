@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche des lieux!
+{% endblock %}
+
+{% block mapboxscripts %}
+	{# script js mapbox #}
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+	{# script css mapbox #}
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet'/>
+{% endblock %}
+
+{% block body %}
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		{
+			# map #
+		}
+		#map {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+		}
+		{
+			# marker #
+		}
+		#marker {
+			background-image: url('/assets/image/yellow-marker.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+			width: 17px;
+			height: 17px;
+			cursor: pointer;
+			border: 1px solid white;
+			border-radius: 50%;
+		}
+	</style>
+
+	{# mapbox-gl-geocoder #}
+	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+	<link
+	rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css' type='text/css'/>
+	<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+	<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+	<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+	<div class="container-fluid">
+		<h1 class="text-center text-warning my-3">{{ place.name }}</h1>
+		{% if is_granted('ROLE_ADMIN') %}
+		<a class="btn btn-danger  ml-4" href="{{ path('delete_place', {id: place.id}) }}">Supprimer</a>
+		{% endif %}
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="info-place">
+					<div
+						class="card mx-auto" style="width: 25rem;">
+						{# <img class="card-img-top" src="/assets/image/card2.jpg" alt="Card image cap"> #}
+						<div class="card-body">
+							<h5 class="card-title">{{place.name }}</h5>
+							{# <p class="card-text">{{ place.complementinfo }}</p> #}
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								<strong>Adresse</strong>
+								:
+								{{place.adress }}</li>
+							<li class="list-group-item">
+								<strong>Horraire</strong>
+								:
+								{{place.schedule}}</li>
+							<li class="list-group-item">
+								<strong>Informations</strong>
+								:
+								{{ place.complementinfo }}</li>
+							<li class="list-group-item">{{ place.createdat|date('d-m-Y') }}</li>
+						</ul>
+						<div class="card-body">
+							<a href="#" class="card-link btn link-reviews ">Voir les Avis</a>
+							<a href="#" class="card-link btn hide-reviews ">Masquer les Avis</a>
+							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+								<a href="{{ path('edit_place', {'id':place.id}) }}" class="btn btn-warning ml-3">Modifier</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+
+				<!-- Avis caché  -->
+				<div class="reviews">
+					{% for review in place.reviews %}
+						<hr>
+						<div class="row">
+							<div class="col-lg-3">
+								<h6 class="">{{ review.user.firstname }}
+									{{ review.user.lastname }}
+									le :
+									{{ review.createdat|date('d-m-Y') }}
+								</h6>
+								<img src="/assets/image/card2.jpg" alt="" class="rounded-circle" style="width: 9rem; height:9rem;">
+							</div>
+
+							<div class="col-lg-7">
+								<span class="rate">
+									{% for i in 1..5 %}
+										{% if i <= review.rate %}
+											<i class="fas fa-star"></i>
+										{% else %}
+											<i class="far fa-star"></i>
+										{% endif %}
+									{% endfor %}
+								</span>
+								<p class="lead">{{review.title}}</p>
+								<p class="lead">{{ review.commentary }}</p>
+							</div>
+
+							<div class="col-lg-2">
+								{% if is_granted('ROLE_ADMIN') %}
+									<a href="{{ path('delete_review',{'id':review.id}) }}" class="btn btn-danger">Supprimer</a>
+								{% endif %}
+ 
+							</div>
+
+						</div>
+					{% endfor %}
+				</div>
+
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+							
+				<h1 class="text-center my-5">Ajouter un avis</h1>
+				<div class="add-review mx-auto" style="width: 25rem;">
+					{{form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+					{{ form_widget(form) }}
+					<button class="btn btn-warning mb-3">Crée</button>
+					{{ form_end(form) }}
+				</div>
+			{% endif %}
+			</div>
+
+			<div class="col-lg-5 mx-auto map_show" style="height: 40rem;">
+				<div id="map"></div>
+			</div>
+		</div>
+	</div>
+
+{# show map #}
+{% include "components/js/show_map.html.twig" %}
+
+{# show review #}
+{% include "components/js/reviews_show.html.twig" %}
+
+{% endblock %}

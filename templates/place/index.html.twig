@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche des lieux!{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+{% endblock %}
+
+{% block mapboxscripts %}
+    {# script js mapbox #}
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+    {# script css mapbox #}
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+{% endblock %}
+
+{% block body %}
+    <style>
+        body { margin:0; padding:0; }
+        
+        {# geocoder input #}
+        .mapboxgl-ctrl-geocoder { min-width:100%; }
+
+        #map-overlay {
+            position:absolute;
+            z-index:1;
+            width:60%;
+            left:50%;
+            margin-left:-47%;
+            top:130px;
+        }
+
+        {# map #}
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+
+        {# popup #}
+        .mapboxgl-popup {
+            max-width: 200px;
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        }
+
+        {# marker #}
+        #marker {
+            background-image: url('/assets/image/yellow-marker.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+            border: 1px solid white;
+            border-radius: 50%;
+
+        }
+
+        {# popup #}
+        .popup-place-name {
+            font-weight: bold;
+        }
+
+    </style>
+    
+    {# mapbox-gl-geocoder #}
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css' type='text/css' />
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+    {# map & geocoder containers #}
+    <div id='map'></div>
+    <div id="map-overlay">
+        <div id='geocoder' class='geocoder input-group'>
+            <a href="{{ path('new_place') }}" class="btn btn-warning">Ajoute un lieu</a>
+        </div>
+    </div>
+    
+    {# map & geocoder script #}
+    {% include "components/js/index_map.html.twig" %}
+
+{% endblock %}
