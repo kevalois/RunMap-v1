@@ -51,50 +51,38 @@
 
 	<div class="container-fluid">
 		<h1 class="text-center text-warning my-3">{{ place.name }}</h1>
-		{% if is_granted('ROLE_ADMIN') %}
-		<a class="btn btn-danger  ml-4" href="{{ path('delete_place', {id: place.id}) }}">Supprimer</a>
-		{% endif %}
-		<div class="row">
-			<div class="col-lg-6">
+			<div class="row">
 				<div class="info-place">
-					<div
-						class="card mx-auto" style="width: 25rem;">
-						{# <img class="card-img-top" src="/assets/image/card2.jpg" alt="Card image cap"> #}
-						<div class="card-body">
-							<h5 class="card-title">{{place.name }}</h5>
-							{# <p class="card-text">{{ place.complementinfo }}</p> #}
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
-								<strong>Adresse</strong>
-								:
-								{{place.adress }}</li>
-							<li class="list-group-item">
-								<strong>Horaire</strong>
-								:
-								{{place.schedule}}</li>
-							<li class="list-group-item">
-								<strong>Informations</strong>
-								:
-								{{ place.complementinfo }}</li>
-							<li class="list-group-item">{{ place.createdat|date('d-m-Y') }}</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link btn link-reviews ">Voir les Avis</a>
-							<a href="#" class="card-link btn hide-reviews ">Masquer les Avis</a>
-							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-								<a href="{{ path('edit_place', {'id':place.id}) }}" class="btn btn-warning ml-3">Modifier</a>
-							{% endif %}
-						</div>
+					<div class="card mx-auto" style="width: 25rem;">
+						<img class="card-img-top" src="/assets/image/card2.jpg" alt="Card image cap">
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{place.name }}</h5>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><strong>Adresse</strong>:{{place.adress }}</li>
+						<li class="list-group-item"><strong>Horaire</strong>:{{place.schedule}}</li>
+						<li class="list-group-item"><strong>Informations</strong>:{{ place.complementinfo }}</li>	
+						<li class="list-group-item"><strong>Sur RunMap depuis le </strong>: {{ place.createdat|date('d-m-Y') }}</li>
+					</ul>
+					<div class="card-body">
+						<a href="#" class="card-link btn link-reviews btn-primary">Voir les Avis</a>
+						<a href="#" class="card-link btn hide-reviews btn-primary">Masquer les Avis</a>
+						{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+							<a href="{{ path('edit_place', {'id':place.id}) }}" class="btn btn-warning ml-3">Modifier</a>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+							<a class="btn btn-danger  ml-4" href="{{ path('delete_place', {id: place.id}) }}">Supprimer</a>
+						{% endif %}
 					</div>
 				</div>
+			</div>
 
 				<!-- Avis caché  -->
 				<div class="reviews">
 					{% for review in place.reviews %}
 						<hr>
 						<div class="row">
-							<div class="col-lg-3">
 								<h6 class="">{{ review.user.firstname }}
 									{{ review.user.lastname }}
 									le :

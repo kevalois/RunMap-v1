@@ -4,12 +4,11 @@
 {% endblock %}
 {% block nav %}{% endblock %}
 {% block body %}
-	<div class="container">
+	<div class="container home">
 
 		<!-- main -->
 		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-			<h1 class="title text-center pt-4">Localise ton futur terrain de jeu
-				{{ app.user.firstname }}</h1>
+			<h1 class="title text-center pt-4">Localise ton futur terrain de jeu {{ app.user.firstname }}</h1>
 		{% else %}
 			<div class="row">
 				<h1 class="title text-center pt-4">Localise ton futur terrain de jeu !</h1>
@@ -23,7 +22,7 @@
 				<a class="p__home mx-auto bg-warning text-white font-weight-bold" href={{ path('register') }}>Inscription</a>
 			</div>
 			<div class="row">
-				<a class="p__home__2 mx-auto bg-primary text-white font-weight-bold" href="#">S'inscrire avec Facebook</a>
+				<a class="p__home__2 mx-auto bg-primary text-white font-weight-bold" href="https://www.facebook.com/">S'inscrire avec Facebook</a>
 			</div>
 		{% endif %}
 	</div>
@@ -73,7 +72,7 @@
 						<p class="text-white text-center">©2019-Runmap</p>
 					</div>
 					<div class="col-lg-3">
-					<ul class="list-nav">
+						<ul class="list-nav">
 							<h6 class=" text-center text-warning">MENU</h6>
 							<li class="text-white text-center">
 								<a href="https://traficmania.com/page-a-propos-remarquable/">À PROPOS</a>
@@ -83,7 +82,8 @@
 							</li>
 						</ul>
 					</div>
-					<div class="col-lg-3"><ul class="list-nav text-center">
+					<div class="col-lg-3">
+						<ul class="list-nav text-center">
 							<h6 class="text-center text-warning">NOUS SUIVRE</h6>
 							<li class="text-white text-center">
 								<a href="https://www.facebook.com/">FACEBOOK</a>
@@ -109,6 +109,5 @@
 		</div>
 
 	</div>
-
 
 {% endblock %}

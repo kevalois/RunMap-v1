@@ -19,10 +19,10 @@ class ReviewType extends AbstractType
     {
         $builder
             ->add('title', TextType::class,[
-                'label' => 'titre'
+                'label' => 'Titre'
             ])
             ->add('commentary', TextareaType::class,[
-                'label' => 'informations'
+                'label' => 'Informations complémentaires'
             ])
             ->add('rate', ChoiceType::class,[
                 'choices' => [
