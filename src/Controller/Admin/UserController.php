@@ -29,13 +29,12 @@ class UserController extends AbstractController
      */
     public function deleteUser($id)
     {
-        //je recherche les utilisateurs par id
         $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->find($id);
-        // suppression de l'utilisateur puis flush
+
         $entityManager->remove($user);
         $entityManager->flush();
-        //redirection sur la page admin
+        
         return $this->redirectToRoute('admin_user');
     }
 }

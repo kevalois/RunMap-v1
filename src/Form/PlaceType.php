@@ -16,29 +16,29 @@ class PlaceType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,[
-                'label'  => 'Lieu',
+                'label' => 'Lieu',
                 'attr' =>[
                     'placeholder' => "Veuillez entrer le nom du lieu."
                 ]
                 ,])
             ->add('adress', TextType::class,[
-                'label'  => 'Adresse',
+                'label' => 'Adresse',
                 'attr' =>[
                     'placeholder' => "Veuillez entrer l'adresse du lieu."
                 ]
-            ])
-            ->add('schedule', TextType::class,[
-                'label'  => 'Horaire',
-                'attr' =>[
-                    'placeholder' => "Veuillez entrer les horaires du lieu."
-                ]
-            ])
+                ,])
+                ->add('schedule', TextType::class,[
+                    'label' => 'Horaire',
+                    'attr' =>[
+                        'placeholder' => "Veuillez entrer les horaires du lieu."
+                    ]
+                    ,])
             ->add('complementinfo', TextareaType::class,[
-                'label'  => 'Informations',
+                'label' => 'Informations',
                 'attr' =>[
                     'placeholder' => "Veuillez entrer les informations utiles du lieu."
                 ]
-            ]);
+                ,]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

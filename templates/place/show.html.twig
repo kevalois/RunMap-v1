@@ -54,18 +54,17 @@
 					</div>
 				</div>
 			</div>
-
-				<!-- Avis caché  -->
+<!-- Avis caché  -->
 				<div class="reviews">
 					{% for review in place.reviews %}
 						<hr>
 						<div class="row">
-							<div class="col-lg-3 mx-auto">
+							<div class="col-lg-3">
 								<h6 class="">{{ review.user.firstname }} {{ review.user.lastname }} le :{{ review.createdat|date('d-m-Y') }}
 								</h6>
 								<img src="/assets/image/card2.jpg" alt="" class="rounded-circle" style="width: 9rem; height:9rem;">
 							</div>
-							<div class="col-lg-7 mx-auto">
+							<div class="col-lg-7">
 								<span class="rate">
 									{% for i in 1..5 %}
 										{% if i <= review.rate %}
@@ -78,7 +77,7 @@
 								<p class="lead">{{review.title}}</p>
 								<p class="lead">{{ review.commentary }}</p>
 							</div>
-							<div class="col-lg-2 mx-auto">
+							<div class="col-lg-2">
 								{% if is_granted('ROLE_ADMIN') %}
 									<a href="{{ path('delete_review',{'id':review.id}) }}" class="btn btn-danger">Supprimer</a>
 								{% endif %}
@@ -92,7 +91,7 @@
 			<div class="row">
 				<div class="col">	
 					<h1 class="text-center my-5">Ajouter un avis</h1>
-						<div class="add-review mx-auto" style="width: 22rem;">
+						<div class="add-review" style="width: 22rem;">
 						{{form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 						{{ form_widget(form) }}
 						<button class="btn btn-warning mb-3">Crée</button>

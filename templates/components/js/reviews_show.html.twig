@@ -1,19 +1,19 @@
 <script>
 	$(document).ready(function(){
 
-		// je masque les reviews a l'ouverture de la page
+		// I hide the reviews at the opening of the page
 		$('.reviews').hide();
 		$('.hide-reviews').hide();
 
-		//au clic j'affiche les avis 
+		//post click
 		$('.link-reviews').click(function(){
 				$(".link-reviews").hide();
 				$(".hide-reviews").show();
 				$(".reviews").show();
 		});
 
-		// au clic je cache les avis
-		 $('.hide-reviews').click(function(){
+		// hidden click
+		$('.hide-reviews').click(function(){
 				$(".hide-reviews").hide();
 				$(".link-reviews").show();
 				$(".reviews").hide();	

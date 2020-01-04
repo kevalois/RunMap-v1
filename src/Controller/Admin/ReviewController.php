@@ -16,11 +16,9 @@ class ReviewController extends AbstractController
     public function deleteReview(Review $review)
     {
         $entityManager = $this->getDoctrine()->getManager();
-
-        // suppression de la review puis flush
         $entityManager->remove($review);
         $entityManager->flush();
-        //redirection sur la Place 
+
         return $this->redirectToRoute('place',
         ['id' => $review->getPlace()->getId(),
         ]);
