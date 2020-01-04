@@ -69,3 +69,37 @@
 span.rate i {
     color: goldenrod;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* {
+    # map #
+} */
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 95%;
+    height: 85%;
+}
+
+
+/* {
+    # marker #
+} */
+
+#marker {
+    background-image: url('/assets/image/yellow-marker.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 50%;
+}
