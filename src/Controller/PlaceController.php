@@ -39,30 +39,25 @@ class PlaceController extends AbstractController
      * @Route("/place/{id}", name="place")
      */
     public function showPlace(Place $place, Request $request) 
-    // https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
     {
         $reviews = $place->getReviews();
         $review = new Review();
         $user = $this->getUser();
-        // je crée le formulaire reliée à l'entitée review 
+        // create form
         $form = $this->createForm(ReviewType::class, $review);
-        //je récupere la requete
         $form->handleRequest($request);
-        // condition si le form et soumis est valide 
+
         if ($form->isSubmitted() && $form->isValid())
         {
-            // j'associe l'utilisateur connecté à la review
             $review->setUser($user);
-            // j'associe la review à la place actuelle
             $review->setPlace($place);
-            // j'appelle entitymanager pour sauvegarder mes données en BDD persist et flush
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($review);
             $entityManager->flush();
         
-            // je retourne un message flash
+            // return message
             $this->addFlash('success', 'Avis ajouté');
-            // je renvoie l'utilisateur sur la place actuelle
             return $this->redirectToRoute('place', ['id' => $place->getId()]);
         }
 
@@ -77,22 +72,22 @@ class PlaceController extends AbstractController
      * @Route("/create/place", name="new_place")
      * @IsGranted("ROLE_USER")
      */
-    public function newPlace(Request $request, CityRepository $cityRepository, ObjectManager $manager)
+    public function newPlace(Request $request, CityRepository $cityRepository, EntityManagerInterface $manager)
     {
-        //je crée mon formulaire City
+        //form city
         $newCity = new City();
         $formCity = $this->createForm(CityType::class, $newCity);
         $formCity->handleRequest($request);
-        //je crée mon formulaire Place
+        //form place
         $newPlace = new Place();
         $formPlace = $this->createForm(PlaceType::class, $newPlace);
         $formPlace->handleRequest($request);
-        //je récupère le name qui est dans la requete rempli par l'utilisateur et je mes le resultat dans $city
+        //request name in $city
         $city = $formCity["name"]->getData();
-        //je vais chercher $city dans ma bdd et je met le résultat dans $cityNameBdd
+        //search $city in bdd and return in the result $cityNameBdd
         $cityNameBdd = $cityRepository->findOneByName($city);
         if ($formCity->isSubmitted() && $formCity->isValid()){
-            //si $cityNameBdd est null j'enregistre la $request de la partie $newCity en bdd
+            //$cityNameBdd is null, register city request on bdd
             if ($cityNameBdd === null){
                 $cityName = $formCity["name"]->getData();
                 $cityPostal = $formCity["postalcode"]->getData();
@@ -102,16 +97,15 @@ class PlaceController extends AbstractController
 
                 $manager->persist($newCity);
                 $manager->flush();
-                //je recupére l'id que je viens de créer et le mes dans $cityId
+                //take the new object in $cityId
                 $cityId = $newCity;
 
             } else {
-                //sinon, si $cityNameBdd existe alors je récupère l'id de cette objet
+                //$cityNameBdd exist, take the object
                 $cityId = $cityNameBdd;
             }
-        
+
         if ($formPlace->isSubmitted() && $formPlace->isValid()){
-            // j'enregistre toutes les informations de $newplace dans chaque champs
             $placeName = $formPlace["name"]->getData();
             $placeAdress = $formPlace["adress"]->getData();
             $placeSchedule = $formPlace["schedule"]->getData();
@@ -121,7 +115,7 @@ class PlaceController extends AbstractController
             $newPlace->setAdress($placeAdress);
             $newPlace->setSchedule($placeSchedule);
             $newPlace->setComplementinfo($placeComplementInfo);
-            //je set mon $cityId avec le resultat du if ou du else au dessus et j'enregistre
+            //set $cityId
             $newPlace->setCity($cityId);
             $manager->persist($newPlace);
             $manager->flush();
@@ -129,7 +123,6 @@ class PlaceController extends AbstractController
             return $this->redirectToRoute('place', ['id' => $newPlace->getId()]);
         }
     }        
-
 
         return $this->render('place/new_place.html.twig', [
             'formCity' => $formCity->createView(),
@@ -140,11 +133,9 @@ class PlaceController extends AbstractController
     /**
      * @Route("/edit/place/{id}", name="edit_place")
      * @IsGranted("ROLE_USER")
-     * 
      */
     public function edit_place($id, Request $request)
     {
-        // je récupere une place par id
         $place = $this->getDoctrine()->getRepository(Place::class)->find($id);
         $form = $this->createForm(PlaceEditType::class, $place);
         $form->handleRequest($request);
@@ -159,5 +150,4 @@ class PlaceController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }

@@ -26,9 +26,7 @@ class UserEditType extends AbstractType
                     'homme' => 'homme',
                     'femme' => 'femme'
                 ],
-            ])
-        ;
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

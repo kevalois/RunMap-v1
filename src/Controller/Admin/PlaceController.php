@@ -15,13 +15,11 @@ class PlaceController extends AbstractController
     */
     public function deletePlace($id)
     {
-        //je recherche les lieux par id
         $entityManager = $this->getDoctrine()->getManager();
         $place = $entityManager->getRepository(Place::class)->find($id);
-        // suppression du lieu puis flush
+
         $entityManager->remove($place);
         $entityManager->flush();
-        //redirection sur la page places
         return $this->redirectToRoute('allPlaces');
 
     }

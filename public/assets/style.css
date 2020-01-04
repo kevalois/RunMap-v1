@@ -28,7 +28,7 @@
 /** search section */
 
 .search-main {
-    height: 120vh;
+    height: 100%;
     background-image: url(https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/frFR/Images/running-fw19-evergreen-clp-crm-desktop_tcm196-328877.jpg);
     background-position: 50%;
     background-repeat: no-repeat;
@@ -68,4 +68,38 @@
 
 span.rate i {
     color: goldenrod;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* {
+    # map #
+} */
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 95%;
+    height: 85%;
+}
+
+
+/* {
+    # marker #
+} */
+
+#marker {
+    background-image: url('/assets/image/yellow-marker.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 50%;
 }

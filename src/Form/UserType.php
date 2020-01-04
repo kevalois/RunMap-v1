@@ -53,8 +53,7 @@ class UserType extends AbstractType
                     'Homme' => 'homme',
                     'Femme' => 'femme'
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
