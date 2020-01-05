@@ -4,28 +4,40 @@
 {% endblock %}
 {% block nav %}{% endblock %}
 {% block body %}
-	<div class="container home">
+	<div class="container-fluid">
 
 		<!-- main -->
 		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 			<h1 class="title text-center pt-4">Localise ton futur terrain de jeu {{ app.user.firstname }}</h1>
 		{% else %}
-			<div class="row">
-				<h1 class="title text-center pt-4">Localise ton futur terrain de jeu !</h1>
-			</div>
-			
+			<h1 class="title text-center pt-4">Localise ton futur terrain de jeu !</h1>
+		{% endif %}
 
-			<div class="row">
-				<img class="col" src="assets/image/logorunmap.png" alt="">
+			{# <div class="row">
+				<img class="image" src="assets/image/logorunmap.png">
 			</div>
 			<div class="row">
 				<a class="p__home mx-auto bg-warning text-white font-weight-bold" href={{ path('register') }}>Inscription</a>
 			</div>
 			<div class="row">
 				<a class="p__home__2 mx-auto bg-primary text-white font-weight-bold" href="https://www.facebook.com/">S'inscrire avec Facebook</a>
+			</div> #}
+
+			<div class="row">
+				<div class="col-lg-7 card-body text-center">
+					<img class="image" src="assets/image/logorunmap.png" alt="">
+				</div>
+				<div class="col-lg-3">
+					<div class="row">
+						<a class="p__home mx-auto bg-warning text-white font-weight-bold" href={{ path('register') }}>Inscription</a>
+					</div>
+					<div class="row">
+						<a class="p__home__2 mx-auto bg-primary text-white font-weight-bold" href="#">S'inscrire avec Facebook</a>
+					</div>
+				</div>
 			</div>
-		{% endif %}
-	</div>
+		
+</div>
 
 	<!-- icone -->
 	<a href="#jaune" class="icone p-4">
@@ -65,11 +77,15 @@
 
 		<div class="footer bg-dark">
 			<span id="jaune"></span>
-			<div class="container">
 				<div class="row">
 					<div class="col-lg-3">
-						<h6 class=" text-center text-warning">RUNMAP</h6>
-						<p class="text-white text-center">©2019-Runmap</p>
+						<ul class="list-nav">
+							<h6 class=" text-center text-warning">RUNMAP</h6>
+							<li class="text-white text-center">©2019-Runmap</li>
+							<li class="text-white text-center">
+								<a href="#">CONTACT</a>
+							</li>
+						</ul>
 					</div>
 					<div class="col-lg-3">
 						<ul class="list-nav">
