@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block title %}Hello ContactController!
-{% endblock %}
+{% block title %}Contact{% endblock %}
 {% block body %}
     <div class="container">
         <h1 class="text-center my-5">Contact</h1>
         <div class="row">
-            <div class="col-lg-7">
-                <img class="mx-auto" src="image/logo.png" alt="">
-            </div>
-            <div class="col-lg-5 my-5">
+            <div class="col-lg-7 mx-auto">
                 {{form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_widget(form) }}
                 <button class="btn btn-warning">Envoyer</button>
