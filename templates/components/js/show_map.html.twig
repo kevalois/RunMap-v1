@@ -1,5 +1,5 @@
 	<script>
-		mapboxgl.accessToken = 'pk.eyJ1IjoiamVhbi1jaHJpc3RvcGhlOTciLCJhIjoiY2s1M3Q4ZmthMGI3NzNscGV2bGZqYTBneSJ9.-2reKEEhjyjZIia7sw05nQ';
+		mapboxgl.accessToken = 'pk.eyJ1Ijoia2V2aW5hbG9pcyIsImEiOiJjazU1MTI5dW4wMW1oM2huMWUzaDhrZnUyIn0.SZh7CMQ3moQEd-ZL96SF3Q';
 var mapboxClient = mapboxSdk({accessToken: mapboxgl.accessToken});
 mapboxClient.geocoding.forwardGeocode({query: '{{ place.adress }},{{ place.city.name }}', autocomplete: false, limit: 1}).send().then(function (response) {
 if (response && response.body && response.body.features && response.body.features.length) {
